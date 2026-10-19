@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FINANCE TRACKER — учебное приложение для учёта доходов и расходов.">
+    <title>Finance Tracker — Учёт финансов</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <div class="app-shell">
+        <aside class="sidebar">
+            <a class="brand" href="#dashboard">
+                <span class="brand-icon">F</span>
+                <span>finance<span class="brand-light">tracker</span></span>
+            </a>
+
+            <div class="sidebar-label">МЕНЮ</div>
+            <nav class="side-nav">
+                <a class="nav-link active" href="#dashboard">
+                    <span class="nav-icon">▦</span> Обзор
+                </a>
+                <a class="nav-link" href="#transactions">
+                    <span class="nav-icon">↕</span> Операции
+                </a>
+                <a class="nav-link" href="#add-transaction">
+                    <span class="nav-icon">＋</span> Добавить запись
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <div class="sidebar-tip">
+                    <span class="tip-icon">✦</span>
+                    <h3>Финансы под контролем</h3>
+                    <p>Отслеживай расходы и двигайся к своим целям.</p>
+                </div>
+                <div class="sidebar-caption">FINANCE TRACKER · DEMO</div>
+            </div>
+        </aside>
+
+        <main class="main-content" id="dashboard">
+            <header class="topbar">
+                <div>
+                    <p class="eyebrow">ТВОИ ФИНАНСЫ</p>
+                    <h1>Обзор</h1>
+                </div>
+                <div class="topbar-right">
+                    <span class="today-date" id="today-date"></span>
+                    <div class="avatar">FT</div>
+                </div>
+            </header>
+
+            <section class="welcome-panel">
+                <div class="welcome-text">
+                    <span class="welcome-tag">ЛИЧНЫЙ ФИНАНСОВЫЙ ДАШБОРД</span>
+                    <h2>Деньги любят<br><span>ясность.</span></h2>
+                    <p>Следи за движением денег, анализируй траты и планируй бюджет.</p>
+                    <a href="#add-transaction" class="welcome-button">＋ Добавить операцию</a>
+                </div>
+                <div class="welcome-art" aria-hidden="true">
+                    <div class="art-ring ring-one"></div>
+                    <div class="art-ring ring-two"></div>
+                    <div class="art-card">
+                        <span>ТВОЙ БАЛАНС</span>
+                        <strong>₽</strong>
+                        <div class="art-line"></div>
+                        <div class="art-line short"></div>
+                    </div>
+                    <div class="art-coin coin-one">₽</div>
+                    <div class="art-coin coin-two">+</div>
+                </div>
+            </section>
+
+            <section class="summary-grid" aria-label="Сводка финансов">
+                <article class="summary-card balance-card">
+                    <div class="summary-top">
+                        <span class="summary-label">Общий баланс</span>
+                        <span class="summary-icon">◈</span>
+                    </div>
+                    <p class="summary-value" id="balance-value">0 ₽</p>
+                    <p class="summary-note">Доходы минус расходы</p>
+                    <div class="mini-progress"><span id="balance-progress"></span></div>
+                </article>
+
+                <article class="summary-card">
+                    <div class="summary-top">
+                        <span class="summary-label">Доходы</span>
+                        <span class="summary-icon income-icon">↗</span>
+                    </div>
+                    <p class="summary-value income-text" id="income-value">0 ₽</p>
+                    <p class="summary-note">За выбранный период</p>
+                    <div class="summary-decoration income-decoration">↗</div>
+                </article>
+
+                <article class="summary-card">
+                    <div class="summary-top">
+                        <span class="summary-label">Расходы</span>
+                        <span class="summary-icon expense-icon">↘</span>
+                    </div>
+                    <p class="summary-value expense-text" id="expense-value">0 ₽</p>
+                    <p class="summary-note">За выбранный период</p>
+                    <div class="summary-decoration expense-decoration">↘</div>
+                </article>
+            </section>
+
+            <section class="content-grid">
+                <div class="panel form-panel" id="add-transaction">
+                    <div class="panel-heading">
+                        <div>
+                            <p class="eyebrow">НОВАЯ ЗАПИСЬ</p>
+                            <h2>Добавить операцию</h2>
+                        </div>
+                        <span class="panel-heading-icon">＋</span>
+                    </div>
+
+                    <form id="transaction-form">
+                        <div class="field-group">
+                            <label>Тип операции</label>
+                            <div class="type-switch">
+                                <label class="type-option income-option">
+                                    <input type="radio" name="type" value="income">
+                                    <span>↗ Доход</span>
+                                </label>
+                                <label class="type-option expense-option">
+                                    <input type="radio" name="type" value="expense" checked>
+                                    <span>↘ Расход</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="title">Название операции</label>
+                            <input
+                                id="title"
+                                name="title"
+                                type="text"
+                                maxlength="70"
+                                placeholder="Например, продукты"
+                                required
+                            >
+                        </div>
+
+                        <div class="form-row">
+                            <div class="field-group">
+                                <label for="amount">Сумма, ₽</label>
+                                <input
+                                    id="amount"
+                                    name="amount"
+                                    type="number"
+                                    min="0.01"
+                                    max="1000000000"
+                                    step="0.01"
+                                    placeholder="0"
+                                    required
+                                >
+                            </div>
+                            <div class="field-group">
+                                <label for="category">Категория</label>
+                                <select id="category" name="category" required>
+                                    <option value="Еда">🍽 Еда</option>
+                                    <option value="Транспорт">🚕 Транспорт</option>
+                                    <option value="Покупки">🛍 Покупки</option>
+                                    <option value="Жильё">🏠 Жильё</option>
+                                    <option value="Здоровье">💊 Здоровье</option>
+                                    <option value="Развлечения">🎮 Развлечения</option>
+                                    <option value="Зарплата">💼 Зарплата</option>
+                                    <option value="Подработка">💻 Подработка</option>
+                                    <option value="Подарок">🎁 Подарок</option>
+                                    <option value="Другое">✦ Другое</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="date">Дата операции</label>
+                            <input id="date" name="date" type="date" required>
+                        </div>
+
+                        <div class="field-group">
+                            <label for="note">Комментарий <span class="optional">(необязательно)</span></label>
+                            <input
+                                id="note"
+                                name="note"
+                                type="text"
+                                maxlength="150"
+                                placeholder="Дополнительная информация"
+                            >
+                        </div>
+
+                        <button class="primary-button submit-button" type="submit">
+                            Сохранить операцию <span>↗</span>
+                        </button>
+                        <p class="form-message" id="form-message" role="status"></p>
+                    </form>
+                </div>
+
+                <div class="panel transactions-panel" id="transactions">
+                    <div class="panel-heading transactions-heading">
+                        <div>
+                            <p class="eyebrow">ИСТОРИЯ ДВИЖЕНИЯ ДЕНЕГ</p>
+                            <h2>Последние операции</h2>
+                        </div>
+                        <span class="count-badge" id="transaction-count">0 записей</span>
+                    </div>
+
+                    <div class="filters">
+                        <div class="search-box">
+                            <span>⌕</span>
+                            <input
+                                type="search"
+                                id="search-input"
+                                placeholder="Поиск операций..."
+                                aria-label="Поиск операций"
+                            >
+                        </div>
+                        <select id="type-filter" aria-label="Фильтр по типу">
+                            <option value="all">Все типы</option>
+                            <option value="income">Доходы</option>
+                            <option value="expense">Расходы</option>
+                        </select>
+                        <select id="category-filter" aria-label="Фильтр по категории">
+                            <option value="all">Все категории</option>
+                            <option value="Еда">Еда</option>
+                            <option value="Транспорт">Транспорт</option>
+                            <option value="Покупки">Покупки</option>
+                            <option value="Жильё">Жильё</option>
+                            <option value="Здоровье">Здоровье</option>
+                            <option value="Развлечения">Развлечения</option>
+                            <option value="Зарплата">Зарплата</option>
+                            <option value="Подработка">Подработка</option>
+                            <option value="Подарок">Подарок</option>
+                            <option value="Другое">Другое</option>
+                        </select>
+                    </div>
+
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ОПЕРАЦИЯ</th>
+                                    <th>КАТЕГОРИЯ</th>
+                                    <th>ДАТА</th>
+                                    <th>СУММА</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody id="transaction-list"></tbody>
+                        </table>
+                    </div>
+
+                    <div class="empty-state" id="empty-state">
+                        <div class="empty-icon">↕</div>
+                        <h3>Пока нет операций</h3>
+                        <p>Добавь первую запись, и она появится здесь.</p>
+                    </div>
+
+                    <div class="panel-footer">
+                        <span id="result-count">Показано 0 операций</span>
+                        <button type="button" class="text-button" id="clear-filters">
+                            Сбросить фильтры
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <footer class="app-footer">
+                <span>© 2026 FINANCE TRACKER</span>
+                <span>УЧЕБНЫЙ ПРОЕКТ · HTML / CSS / JAVASCRIPT</span>
+            </footer>
+        </main>
+    </div>
+</body>
+</html>
